@@ -1,0 +1,33 @@
+:root {
+
+    --bg: #ffffff;
+    --surface: #fafafa;
+
+    --text: #111827;
+    --text-light: #6b7280;
+
+    --border: #e5e7eb;
+
+    --primary: #14532d;
+
+    --hover: #f3f4f6;
+
+}
+
+.dark {
+
+    --bg: #0f172a;
+
+    --surface: #111827;
+
+    --text: #f9fafb;
+
+    --text-light: #cbd5e1;
+
+    --border: #374151;
+
+    --primary: #22c55e;
+
+    --hover: #1f2937;
+
+}
