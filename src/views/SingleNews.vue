@@ -102,7 +102,133 @@ const getPost = async () => {
     }
 
     post.value = data;
+    // Dynamic page title
 
+    document.title = `${data.title} | OOU Chronicle`;
+
+    // Meta description
+
+    let description = document.querySelector('meta[name="description"]');
+
+    if (!description) {
+
+        description = document.createElement("meta");
+
+        description.setAttribute("name", "description");
+
+        document.head.appendChild(description);
+
+    }
+
+    description.setAttribute(
+
+        "content",
+
+        data.excerpt ||
+
+        "Read the latest campus news from OOU Chronicle."
+
+    );
+    /* ===========================
+   SEO
+=========================== */
+
+    // Open Graph
+    const updatePropertyMeta = (property, content) => {
+
+        let tag = document.querySelector(`meta[property="${property}"]`);
+
+        if (!tag) {
+
+            tag = document.createElement("meta");
+
+            tag.setAttribute("property", property);
+
+            document.head.appendChild(tag);
+
+        }
+
+        tag.setAttribute("content", content);
+
+    };
+
+    // Twitter
+    const updateNameMeta = (name, content) => {
+
+        let tag = document.querySelector(`meta[name="${name}"]`);
+
+        if (!tag) {
+
+            tag = document.createElement("meta");
+
+            tag.setAttribute("name", name);
+
+            document.head.appendChild(tag);
+
+        }
+
+        tag.setAttribute("content", content);
+
+    };
+
+    // Canonical
+    let canonical = document.querySelector("link[rel='canonical']");
+
+    if (!canonical) {
+
+        canonical = document.createElement("link");
+
+        canonical.rel = "canonical";
+
+        document.head.appendChild(canonical);
+
+    }
+
+    canonical.href = window.location.href;
+
+    // Open Graph
+    updatePropertyMeta("og:title", data.title);
+
+    updatePropertyMeta(
+        "og:description",
+        data.excerpt || "Latest news from OOU Chronicle."
+    );
+
+    updatePropertyMeta(
+        "og:image",
+        data.featured_image
+    );
+
+    updatePropertyMeta(
+        "og:url",
+        window.location.href
+    );
+
+    updatePropertyMeta(
+        "og:type",
+        "article"
+    );
+
+    // Twitter
+    updateNameMeta(
+        "twitter:card",
+        "summary_large_image"
+    );
+
+    updateNameMeta(
+        "twitter:title",
+        data.title
+    );
+
+    updateNameMeta(
+        "twitter:description",
+        data.excerpt || ""
+    );
+
+    updateNameMeta(
+        "twitter:image",
+        data.featured_image
+    );
     // Calculate read time
     post.value.read_time = calculateReadTime(data.content);
 

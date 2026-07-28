@@ -1,0 +1,5 @@
+User-agent: *
+
+Allow: /
+
+Sitemap: https://oou-chronicles.netlify.app/sitemap.xml

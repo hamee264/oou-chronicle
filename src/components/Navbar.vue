@@ -1,86 +1,136 @@
 <template>
-    <div class="Container" :class="{ 'is-scrolled': isScrolled }">
+    <header class="Container" :class="{ 'is-scrolled': isScrolled }">
+
         <TopBar />
 
+        <!-- Dateline -->
         <div class="dateline">
-            <span class="dateline-item">Olabisi Onabanjo University</span>
-            <span class="dateline-divider" aria-hidden="true">•</span>
-            <span class="dateline-item">{{ editionDate }}</span>
-            <span class="dateline-divider" aria-hidden="true">•</span>
-            <span class="dateline-item dateline-edition">Campus edition</span>
+
+            <div class="dateline-left">
+                <span>Olabisi Onabanjo University</span>
+                <span class="dot">•</span>
+                <span>{{ editionDate }}</span>
+                <span class="dot">•</span>
+                <span>Campus Edition</span>
+            </div>
+
+            <div class="dateline-right">
+                <span>Independent Student Newspaper</span>
+            </div>
+
         </div>
 
+        <!-- Desktop Navbar -->
         <div class="navbar desktop-navbar">
-            <RouterLink to="/" class="logo" aria-label="OOU Chronicle home">
-                <span class="seal">
-                    <img src="/src/assets/images.jpeg" alt="" />
-                </span>
-                <span class="logo-text">
-                    <h2>OOU Chronicle</h2>
-                    <p>News from the Blue Ridge campus</p>
-                </span>
+
+            <!-- Logo -->
+            <RouterLink to="/" class="logo">
+
+                <div class="seal">
+                    <img src="/src/assets/images.jpeg" alt="OOU Chronicle">
+                </div>
+
+                <div class="logo-text">
+                    <h1>OOU Chronicle</h1>
+                    <p>The Voice of the Blue Ridge Campus</p>
+                </div>
+
             </RouterLink>
 
-            <nav class="links" aria-label="Primary">
-                <RouterLink class="link" @click="menuOpen = false" to="/">Home</RouterLink>
-                <RouterLink class="link" @click="menuOpen = false" to="/news">News</RouterLink>
-                <RouterLink class="link" @click="menuOpen = false" to="/about">About</RouterLink>
-                <RouterLink class="link" @click="menuOpen = false" to="/categories">Categories</RouterLink>
-                <RouterLink class="link" @click="menuOpen = false" to="/contact">Contact</RouterLink>
+            <!-- Navigation -->
+            <nav class="links">
+
+                <RouterLink class="link" to="/">
+                    Home
+                </RouterLink>
+
+                <RouterLink class="link" to="/news">
+                    News
+                </RouterLink>
+
+                <RouterLink class="link" to="/about">
+                    About
+                </RouterLink>
+
+                <RouterLink class="link" to="/categories">
+                    Categories
+                </RouterLink>
+
             </nav>
 
-            <div class="search">
-                <!-- <router-link to="/Search" class="icon-btn" aria-label="Search stories">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                </router-link> -->
-                <button type="button" class="icon-btn" aria-label="Toggle dark mode">
-                    <i class="fa-solid fa-moon" aria-hidden="true"></i>
-                </button>
+            <!-- Right Action -->
+            <div class="navbar-right">
+
+                <RouterLink class="contact-btn" to="/contact">
+                    Contact
+                </RouterLink>
+
             </div>
+
         </div>
 
         <div class="rule"></div>
 
+        <!-- Mobile Navbar -->
+
         <div class="mobile-navbar">
-            <RouterLink to="/" class="mobile-brand" aria-label="OOU Chronicle home">
-                <img src="/src/assets/images.jpeg" alt="" />
+
+            <RouterLink to="/" class="mobile-brand">
+
+                <img src="/src/assets/images.jpeg" alt="OOU Chronicle">
+
             </RouterLink>
 
-            <div class="icons">
-                <!-- <router-link to="/Search" class="icon-btn" aria-label="Search stories">
-                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                </router-link> -->
-                <button type="button" class="icon-btn" aria-label="Toggle dark mode">
-                    <i class="fa-solid fa-moon" aria-hidden="true"></i>
-                </button>
-                <button type="button" class="icon-btn menu-toggle" :aria-expanded="menuOpen" aria-label="Toggle menu"
-                    aria-controls="mobile-nav" @click="toggleMenu">
-                    <i :class="menuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" aria-hidden="true"></i>
-                </button>
-            </div>
+            <button class="icon-btn" @click="toggleMenu">
 
-            <nav id="mobile-nav" class="Mobile-links" :class="{ open: menuOpen }" aria-label="Mobile">
-                <RouterLink class="link" to="/" @click="menuOpen = false">Home</RouterLink>
-                <RouterLink class="link" to="/news" @click="menuOpen = false">News</RouterLink>
-                <RouterLink class="link" to="/about" @click="menuOpen = false">About</RouterLink>
-                <RouterLink class="link" to="/categories" @click="menuOpen = false">Categories</RouterLink>
-                <RouterLink class="link" to="/contact" @click="menuOpen = false">Contact</RouterLink>
+                <i :class="menuOpen
+                    ? 'fa-solid fa-xmark'
+                    : 'fa-solid fa-bars'"></i>
+
+            </button>
+
+            <nav class="Mobile-links" :class="{ open: menuOpen }">
+
+                <RouterLink class="link" to="/" @click="menuOpen = false">
+                    Home
+                </RouterLink>
+
+                <RouterLink class="link" to="/news" @click="menuOpen = false">
+                    News
+                </RouterLink>
+
+                <RouterLink class="link" to="/about" @click="menuOpen = false">
+                    About
+                </RouterLink>
+
+                <RouterLink class="link" to="/categories" @click="menuOpen = false">
+                    Categories
+                </RouterLink>
+
+                <RouterLink class="link" to="/contact" @click="menuOpen = false">
+                    Contact
+                </RouterLink>
+
             </nav>
+
         </div>
 
-        <div v-if="menuOpen" class="overlay" @click="toggleMenu"></div>
-    </div>
-</template>
+        <div v-if="menuOpen" class="overlay" @click="menuOpen = false">
+        </div>
 
+    </header>
+</template>
 
 <script setup>
 import TopBar from "./TopBar.vue";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
 const menuOpen = ref(false);
-function toggleMenu() {
+const isScrolled = ref(false);
+
+const toggleMenu = () => {
     menuOpen.value = !menuOpen.value;
-}
+};
 
 const editionDate = computed(() =>
     new Date().toLocaleDateString("en-GB", {
@@ -91,282 +141,309 @@ const editionDate = computed(() =>
     })
 );
 
-const isScrolled = ref(false);
-function handleScroll() {
-    isScrolled.value = window.scrollY > 4;
-}
-function handleKeydown(e) {
-    if (e.key === "Escape" && menuOpen.value) {
+const handleScroll = () => {
+    isScrolled.value = window.scrollY > 8;
+};
+
+const handleKeydown = (e) => {
+    if (e.key === "Escape") {
         menuOpen.value = false;
     }
-}
+};
 
 onMounted(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, {
+        passive: true,
+    });
+
     window.addEventListener("keydown", handleKeydown);
 });
+
 onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
     window.removeEventListener("keydown", handleKeydown);
 });
 </script>
-
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap");
 
 .Container {
-    --color-green: #14532d;
-    --color-green-dark: #0f3d21;
-    --color-green-tint: #f0f7f2;
-    --color-ink: #1f2937;
-    --color-muted: #6b7280;
-    --color-border: #e5e7eb;
-    --color-border-soft: #f3f4f6;
+    --black: #111111;
+    --text: #222222;
+    --muted: #707070;
+    --border: #e8e8e8;
+    --border-soft: #f3f3f3;
+    --green: #14532d;
+    --green-light: #edf6ef;
+
     --font-serif: "Fraunces", serif;
     --font-sans: "Public Sans", sans-serif;
     --font-mono: "IBM Plex Mono", monospace;
-    --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
 
     position: sticky;
     top: 0;
-    z-index: 50;
-    padding: 0;
+    z-index: 999;
     display: flex;
     flex-direction: column;
-    background: #ffffff;
-    font-family: var(--font-sans);
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-    transition: box-shadow 0.3s var(--ease-premium);
+    background: #fff;
+    transition: .25s ease;
 }
 
 .Container.is-scrolled {
-    box-shadow: 0 2px 10px rgba(15, 23, 15, 0.06);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .06);
 }
 
-/* dateline */
+/* ==========================
+   DATELINE
+========================== */
+
 .dateline {
-    background: var(--color-green);
-    color: #ffffff;
-    padding: 6px 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-
-.dateline-item {
-    opacity: 0.92;
-}
-
-.dateline-edition {
-    opacity: 1;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.14);
-    padding: 2px 8px;
-    border-radius: 2px;
-    letter-spacing: 0.08em;
-}
-
-.dateline-divider {
-    color: #5c8a6f;
-}
-
-/* desktop navbar */
-.navbar {
-    padding: 16px 30px;
+    height: 40px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 24px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    background: #fff;
 }
 
-.mobile-navbar {
-    display: none;
+.dateline-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
+
+.dateline-right {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.dot {
+    color: #bdbdbd;
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    transition: .25s ease;
+}
+
+.Container.is-scrolled .navbar {
+    padding: 14px 40px;
+}
+
+/* ==========================
+   LOGO
+========================== */
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     text-decoration: none;
-    border-radius: 4px;
 }
 
 .seal {
-    width: 52px;
-    height: 52px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
-    border: 1.5px solid var(--color-green);
-    padding: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--border);
     flex-shrink: 0;
-    transition: transform 0.3s var(--ease-premium), border-color 0.3s var(--ease-premium);
+    transition: .25s;
 }
 
-.logo:hover .seal,
-.logo:focus-visible .seal {
+.logo:hover .seal {
     transform: scale(1.05);
-    border-color: var(--color-green-dark);
 }
 
 .seal img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%;
 }
 
-.logo-text {
-    display: block;
+.logo-text h1 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--black);
+    line-height: 1;
+    letter-spacing: -.02em;
 }
 
 .logo-text p {
-    font-size: 11px;
-    color: var(--color-muted);
-    margin-top: 2px;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: .82rem;
     font-style: italic;
 }
 
-.logo-text h2 {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 1.7rem;
-    color: var(--color-green);
-    letter-spacing: -0.01em;
-    line-height: 1;
-    margin: 0;
-}
+/* ==========================
+   NAV LINKS
+========================== */
 
 .links {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 2.4rem;
+    gap: 3.2rem;
 }
 
-.links .link {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-ink);
-    text-decoration: none;
+.link {
     position: relative;
-    padding-bottom: 4px;
-    white-space: nowrap;
-    transition: color 0.25s var(--ease-premium);
+    text-decoration: none;
+    color: var(--text);
+    font-size: .82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    transition: .25s;
 }
 
-.links .link::after {
+.link::after {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background: var(--color-green);
-    transition: width 0.3s var(--ease-premium);
-}
-
-.link:hover::after,
-.link.router-link-exact-active::after {
+    left: 50%;
+    bottom: -8px;
     width: 100%;
+    height: 2px;
+    background: var(--green);
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: .25s;
 }
 
 .link:hover,
 .link.router-link-exact-active {
-    color: var(--color-green);
+    color: var(--green);
 }
 
-.search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+.link:hover::after,
+.link.router-link-exact-active::after {
+    transform: translateX(-50%) scaleX(1);
 }
 
-.icon-btn {
-    width: 38px;
-    height: 38px;
+/* ==========================
+   CONTACT BUTTON
+========================== */
+
+.navbar-right {
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: var(--color-ink);
-    background: none;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
+}
+
+.contact-btn {
     text-decoration: none;
-    transition: color 0.25s var(--ease-premium), background 0.25s var(--ease-premium);
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 11px 22px;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    transition: .25s ease;
 }
 
-.icon-btn i {
-    font-size: 1rem;
-    transition: transform 0.2s var(--ease-premium);
+.contact-btn:hover {
+    background: var(--black);
+    color: #fff;
 }
 
-.icon-btn:hover {
-    color: var(--color-green);
-    background: var(--color-green-tint);
-}
+/* ==========================
+   RULE
+========================== */
 
-.icon-btn:active i {
-    transform: scale(0.9);
-}
-
-/* signature double rule */
 .rule {
-    height: 4px;
-    background: var(--color-green);
-    border-bottom: 1px solid var(--color-green-dark);
+    height: 2px;
+    background: var(--black);
+    position: relative;
+}
+
+.rule::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ==========================
+   MOBILE NAVBAR
+========================== */
+
+.mobile-navbar {
+    display: none;
 }
 
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 15, 0.45);
+    background: rgba(0, 0, 0, .35);
+    backdrop-filter: blur(2px);
     z-index: 90;
 }
 
-@media (max-width: 950px) {
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width:950px) {
+
     .navbar {
-        padding: 14px 20px;
+        padding: 16px 24px;
+    }
+
+    .Container.is-scrolled .navbar {
+        padding: 14px 24px;
     }
 
     .dateline {
-        padding: 5px 20px;
-        font-size: 9.5px;
-        gap: 8px;
+        padding: 0 24px;
+        font-size: .66rem;
     }
 
-    .seal {
-        width: 42px;
-        height: 42px;
+    .logo-text h1 {
+        font-size: 1.6rem;
     }
 
     .logo-text p {
-        font-size: 9px;
-    }
-
-    .logo-text h2 {
-        font-size: 1.25rem;
+        font-size: .72rem;
     }
 
     .links {
-        gap: 1.4rem;
+        gap: 2rem;
     }
 
-    .links .link {
-        font-size: 11px;
+    .link {
+        font-size: .74rem;
     }
+
+    .contact-btn {
+        padding: 10px 18px;
+        font-size: .72rem;
+    }
+
 }
 
-@media (max-width: 800px) {
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width:800px) {
+
     .desktop-navbar {
         display: none;
     }
@@ -375,119 +452,194 @@ onUnmounted(() => {
         display: none;
     }
 
+    .rule {
+        display: none;
+    }
+
     .mobile-navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        min-height: 66px;
-        padding: 0 16px;
+        padding: 14px 18px;
         position: relative;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
         z-index: 100;
     }
 
     .mobile-brand {
-        display: inline-flex;
-        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
     }
 
     .mobile-brand img {
-        width: 90px;
-        height: 56px;
+        width: 52px;
+        height: 52px;
         object-fit: cover;
-        border-radius: 4px;
-        border: 1.5px solid var(--color-green);
-        padding: 2px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
     }
 
-    .rule {
-        order: -1;
-    }
-
-    .icons {
+    .icon-btn {
+        width: 44px;
+        height: 44px;
         display: flex;
+        justify-content: center;
         align-items: center;
-        gap: 4px;
+        border: none;
+        background: #fff;
+        color: var(--black);
+        cursor: pointer;
+        transition: .25s;
+    }
+
+    .icon-btn i {
+        font-size: 1.3rem;
+    }
+
+    .icon-btn:hover {
+        color: var(--green);
     }
 
     .Mobile-links {
         position: absolute;
-        top: calc(100% + 8px);
-        left: 16px;
-        right: 16px;
+        top: calc(100% + 10px);
+        left: 18px;
+        right: 18px;
+
         display: flex;
         flex-direction: column;
-        background: #ffffff;
-        border: 1px solid var(--color-border);
-        border-radius: 6px;
-        overflow: hidden;
+
+        background: #fff;
+
+        border: 1px solid var(--border);
+
+        box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
+
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-12px);
-        transition: opacity 0.25s var(--ease-premium), transform 0.25s var(--ease-premium),
-            visibility 0.25s;
+        transform: translateY(-10px);
+
+        transition: .25s ease;
+
         z-index: 100;
-        box-shadow: 0 8px 24px rgba(15, 23, 15, 0.1);
     }
 
     .Mobile-links.open {
+
         opacity: 1;
+
         visibility: visible;
+
         transform: translateY(0);
+
     }
 
     .Mobile-links .link {
-        padding: 16px 20px;
-        text-decoration: none;
-        color: var(--color-ink);
-        font-family: var(--font-serif);
-        font-size: 16px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid var(--color-border-soft);
-        border-left: 3px solid transparent;
-        transition: background 0.2s var(--ease-premium), border-color 0.2s var(--ease-premium),
-            padding-left 0.2s var(--ease-premium), color 0.2s var(--ease-premium);
+
+        padding: 18px 20px;
+
+        text-transform: none;
+
+        letter-spacing: 0;
+
+        font-size: 1rem;
+
+        color: var(--text);
+
+        border-bottom: 1px solid var(--border-soft);
+
     }
 
     .Mobile-links .link:last-child {
+
         border-bottom: none;
+
     }
 
-    .Mobile-links .link:hover,
-    .Mobile-links .link:focus-visible {
-        background: var(--color-green-tint);
-        border-left-color: var(--color-green);
-        padding-left: 26px;
+    .Mobile-links .link::after {
+
+        display: none;
+
     }
 
-    .Mobile-links .link.router-link-exact-active {
-        border-left-color: var(--color-green);
-        color: var(--color-green);
-        font-weight: 600;
+    .Mobile-links .link:hover {
+
+        background: var(--green-light);
+
+        color: var(--green);
+
+        padding-left: 28px;
+
     }
+
+    .Mobile-links .router-link-exact-active {
+
+        color: var(--green);
+
+        background: var(--green-light);
+
+        border-left: 3px solid var(--green);
+
+        padding-left: 25px;
+
+    }
+
 }
 
-/* accessibility: visible focus states */
-.link:focus-visible,
+/* ==========================
+   SMALL PHONES
+========================== */
+
+@media (max-width:420px) {
+
+    .mobile-navbar {
+
+        padding: 12px 14px;
+
+    }
+
+    .mobile-brand img {
+
+        width: 46px;
+
+        height: 46px;
+
+    }
+
+}
+
+/* ==========================
+   ACCESSIBILITY
+========================== */
+
 .logo:focus-visible,
+.link:focus-visible,
+.contact-btn:focus-visible,
 .icon-btn:focus-visible {
-    outline: 2px solid var(--color-green);
-    outline-offset: 3px;
-    border-radius: 2px;
+
+    outline: 2px solid var(--green);
+
+    outline-offset: 4px;
+
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* ==========================
+   REDUCED MOTION
+========================== */
 
-    .Container,
-    .seal,
-    .link::after,
-    .link,
-    .icon-btn,
-    .icon-btn i,
-    .Mobile-links,
-    .Mobile-links .link {
+@media (prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+
         transition: none !important;
+
+        animation: none !important;
+
     }
+
 }
 </style>

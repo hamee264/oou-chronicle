@@ -1,0 +1,63 @@
+/* DARK MODE */
+
+html.dark body{
+    background:#0f172a;
+    color:#f8fafc;
+}
+
+html.dark section{
+    background:transparent;
+}
+
+html.dark article{
+    background:#111827;
+}
+
+html.dark div{
+    color:inherit;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6{
+    color:#f8fafc !important;
+}
+
+html.dark p,
+html.dark span,
+html.dark small{
+    color:#cbd5e1 !important;
+}
+
+html.dark a{
+    color:#f8fafc;
+}
+
+html.dark input,
+html.dark textarea,
+html.dark select{
+    background:#111827;
+    color:white;
+    border:1px solid #374151;
+}
+
+html.dark button{
+    color:white;
+}
+
+html.dark img{
+    opacity:.95;
+}
+html.dark .news-card,
+html.dark .sidebar,
+html.dark .hero,
+html.dark .footer{
+
+    background:#111827;
+
+    border-color:#374151;
+
+}
