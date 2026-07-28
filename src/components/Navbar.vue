@@ -30,9 +30,9 @@
             </nav>
 
             <div class="search">
-                <router-link to="/Search" class="icon-btn" aria-label="Search stories">
+                <!-- <router-link to="/Search" class="icon-btn" aria-label="Search stories">
                     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                </router-link>
+                </router-link> -->
                 <button type="button" class="icon-btn" aria-label="Toggle dark mode">
                     <i class="fa-solid fa-moon" aria-hidden="true"></i>
                 </button>
@@ -43,13 +43,13 @@
 
         <div class="mobile-navbar">
             <RouterLink to="/" class="mobile-brand" aria-label="OOU Chronicle home">
-                <img src="/src/assets/hero.png" alt="" />
+                <img src="/src/assets/images.jpeg" alt="" />
             </RouterLink>
 
             <div class="icons">
-                <router-link to="/Search" class="icon-btn" aria-label="Search stories">
+                <!-- <router-link to="/Search" class="icon-btn" aria-label="Search stories">
                     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                </router-link>
+                </router-link> -->
                 <button type="button" class="icon-btn" aria-label="Toggle dark mode">
                     <i class="fa-solid fa-moon" aria-hidden="true"></i>
                 </button>

@@ -211,5 +211,8 @@
         font-size: 2.1rem;
     }
 
+    .left {
+        position: static;
+    }
 }
 </style>

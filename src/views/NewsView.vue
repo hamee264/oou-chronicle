@@ -23,11 +23,7 @@
 
                 <template v-else-if="posts.length">
 
-                    <NewsCard
-    v-for="post in paginatedPosts"
-    :key="post.id"
-    :post="post"
-/>
+                    <NewsCard v-for="post in paginatedPosts" :key="post.id" :post="post" />
                     <Pagination v-if="totalPages > 1" :current-page="currentPage" :total-pages="totalPages"
                         @change-page="changePage" />
 
@@ -196,7 +192,7 @@ const filterPosts = () => {
 
         );
         console.log("Posts:", posts.value.length);
-console.log("Pages:", totalPages.value);
+        console.log("Pages:", totalPages.value);
     }
 
     // Category
@@ -305,7 +301,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-
 .news-page {
     width: min(1250px, 92%);
     margin: 40px auto 80px;
@@ -323,7 +318,6 @@ onMounted(async () => {
     flex-direction: column;
     gap: 30px;
     position: sticky;
-
     top: 200px;
 
     align-self: start;
@@ -400,5 +394,8 @@ onMounted(async () => {
         margin: 30px auto 60px;
     }
 
+    .articles {
+        position: static;
+    }
 }
 </style>

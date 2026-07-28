@@ -1,50 +1,75 @@
 <template>
-    <section class="hero" v-if="featuredPost">
 
-        <div class="hero-image">
-            <img :src="featuredPost.featured_image" :alt="featuredPost.title">
-        </div>
+    <section class="hero-wrapper">
 
-        <div class="hero-content">
+        <div class="hero-intro">
 
-            <span class="category">
-                {{ featuredPost.categories?.name }}
+            <span class="section-tag">
+                OOU CHRONICLE
             </span>
 
-            <h1>
-                {{ featuredPost.title }}
-            </h1>
+            <h2>
+                Campus News That Matters
+            </h2>
 
-            <p class="excerpt">
-                {{ featuredPost.excerpt }}
+            <p>
+                Bringing you trusted campus news, student stories, academic updates, sports, events and everything
+                happening across Olabisi Onabanjo University and its surrounding communities.
             </p>
 
-            <div class="meta">
+        </div>
 
-                <span>
-                    <i class="fa-regular fa-user"></i>
-                    OOU Chronicle
-                </span>
+        <section class="hero" v-if="featuredPost">
 
-                <span>
-                    <i class="fa-regular fa-calendar"></i>
-                    {{ formatDate(featuredPost.published_at) }}
-                </span>
+            <div class="hero-image">
 
-                <span>
-                    <i class="fa-regular fa-clock"></i>
-                    4 min read
-                </span>
+                <img :src="featuredPost.featured_image" :alt="featuredPost.title">
 
             </div>
 
-            <RouterLink :to="`/news/${featuredPost.slug}`" class="read-btn">
-                Read Full Story
-            </RouterLink>
+            <div class="hero-content">
 
-        </div>
+                <span class="category">
+                    {{ featuredPost.categories?.name }}
+                </span>
+
+                <h1>
+                    {{ featuredPost.title }}
+                </h1>
+
+                <p class="excerpt">
+                    {{ featuredPost.excerpt }}
+                </p>
+
+                <div class="meta">
+
+                    <span>
+                        <i class="fa-regular fa-user"></i>
+                        OOU Chronicle
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-calendar"></i>
+                        {{ formatDate(featuredPost.published_at) }}
+                    </span>
+
+                    <span>
+                        <i class="fa-regular fa-clock"></i>
+                        4 min read
+                    </span>
+
+                </div>
+
+                <RouterLink :to="`/news/${featuredPost.slug}`" class="read-btn">
+                    Read Full Story
+                </RouterLink>
+
+            </div>
+
+        </section>
 
     </section>
+
 </template>
 <script setup>
 import { computed } from "vue";
@@ -68,14 +93,73 @@ const formatDate = (date) => {
 };
 </script>
 <style scoped>
-.hero {
+.hero-wrapper {
     width: min(1200px, 92%);
-    margin: 45px auto;
+    margin: 60px auto 80px;
+}
+
+.hero-intro {
+    max-width: 760px;
+    margin-bottom: 45px;
+}
+
+.section-tag {
+
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 16px;
+
+    border-radius: 999px;
+
+    background: #14532d;
+    color: #fff;
+
+    font-size: .78rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 18px;
+
+}
+
+.hero-intro h2 {
+
+    font-family: Georgia, serif;
+
+    font-size: 3rem;
+
+    line-height: 1.2;
+
+    color: #111827;
+
+    margin-bottom: 18px;
+
+}
+
+.hero-intro p {
+
+    max-width: 700px;
+
+    color: #6b7280;
+
+    font-size: 1.05rem;
+
+    line-height: 1.9;
+
+}
+
+.hero {
 
     display: grid;
+
     grid-template-columns: 2fr 1fr;
+
     gap: 35px;
+
     align-items: center;
+
 }
 
 .hero-image img {
