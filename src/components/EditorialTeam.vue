@@ -1,46 +1,82 @@
 <template>
 
-    <section class="team">
+    <section class="founder">
 
         <div class="heading">
 
-            <span>THE PEOPLE BEHIND OOU CHRONICLE</span>
+            <span>MEET THE FOUNDER</span>
 
             <h2>
-                A Small Team With A Shared Purpose
+                Built By One Person. Inspired By An Entire Campus.
             </h2>
 
             <p>
-                Behind every article is a team committed to informing,
-                documenting and celebrating life at Olabisi Onabanjo
-                University.
+                OOU Chronicle is currently designed, developed and managed by
+                a single founder with a passion for campus journalism,
+                technology and storytelling. As the platform grows, it will
+                welcome writers, editors and contributors from across the
+                university community.
             </p>
 
         </div>
 
-        <div class="team-grid">
+        <div class="founder-card">
 
-            <article class="member" v-for="member in members" :key="member.id">
+            <div class="image">
 
-                <div class="image">
+                <img :src="founder.image" :alt="founder.name">
 
-                    <img :src="member.image" :alt="member.name">
+            </div>
+
+            <div class="content">
+
+                <span class="role">
+
+                    {{ founder.role }}
+
+                </span>
+
+                <h3>
+
+                    {{ founder.name }}
+
+                </h3>
+
+                <p>
+
+                    {{ founder.bio }}
+
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <h4>2026</h4>
+
+                        <span>Founded</span>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <h4>1</h4>
+
+                        <span>Founder</span>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <h4>∞</h4>
+
+                        <span>Vision</span>
+
+                    </div>
 
                 </div>
 
-                <div class="info">
-
-                    <h3>{{ member.name }}</h3>
-
-                    <span>{{ member.role }}</span>
-
-                    <p>
-                        {{ member.bio }}
-                    </p>
-
-                </div>
-
-            </article>
+            </div>
 
         </div>
 
@@ -49,50 +85,34 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 
-const members = ref([
-    {
-        id: 1,
-        name: 'John Adebayo',
-        role: 'Editor-in-Chief',
-        bio: 'Leads editorial direction and oversees all published content.',
-        image: '/src/assets/faceless.png'
-    },
-    {
-        id: 2,
-        name: 'Aisha Bello',
-        role: 'Managing Editor',
-        bio: 'Coordinates writers, editors and newsroom operations.',
-        image: '/src/assets/faceless.png'
-    },
-    {
-        id: 3,
-        name: 'David Ogunleye',
-        role: 'Campus Reporter',
-        bio: 'Reports on student activities, university events and announcements.',
-        image: '/src/assets/faceless.png'
-    },
-    {
-        id: 4,
-        name: 'Grace Adeyemi',
-        role: 'Photojournalist',
-        bio: 'Captures moments that define campus life through photography.',
-        image: '/src/assets/faceless.png'
-    }
-])
+const founder = {
+
+    name: "Hameed AbdulRauf",
+
+    role: "Founder & Developer",
+
+    bio: "I founded OOU Chronicle to create a modern digital newspaper dedicated to Olabisi Onabanjo University. Every aspect of this platform—from design and development to content management and publishing—is currently handled by me. My goal is to build a trusted source of campus news while creating opportunities for students to contribute their voices in the future.",
+
+    image: "/src/assets/faceless.png"
+
+}
+
 </script>
 
 <style scoped>
-.team {
+.founder {
+
     margin: 120px 0;
+
 }
 
 .heading {
 
-    max-width: 650px;
+    max-width: 700px;
 
-    margin-bottom: 55px;
+    margin-bottom: 60px;
+
 }
 
 .heading span {
@@ -104,6 +124,7 @@ const members = ref([
     letter-spacing: 2px;
 
     font-weight: 700;
+
 }
 
 .heading h2 {
@@ -115,6 +136,9 @@ const members = ref([
     font-family: Georgia, serif;
 
     color: #111827;
+
+    line-height: 1.2;
+
 }
 
 .heading p {
@@ -122,86 +146,140 @@ const members = ref([
     color: #6b7280;
 
     line-height: 1.9;
+
 }
 
-.team-grid {
+.founder-card {
 
     display: grid;
 
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 340px 1fr;
 
-    gap: 28px;
-}
+    gap: 60px;
 
-.member {
+    align-items: center;
 
-    transition: .3s;
-}
+    padding: 35px;
 
-.member:hover {
+    border: 1px solid #e5e7eb;
 
-    transform: translateY(-5px);
+    border-radius: 18px;
+
+    background: #fff;
+
 }
 
 .image {
 
     overflow: hidden;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    margin-bottom: 20px;
 }
 
 .image img {
 
     width: 100%;
 
-    height: 340px;
+    height: 420px;
 
     object-fit: cover;
 
     display: block;
 
     transition: .4s;
+
 }
 
-.member:hover img {
+.founder-card:hover img {
 
     transform: scale(1.05);
+
 }
 
-.info h3 {
+.role {
 
-    margin-bottom: 6px;
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    background: #14532d;
+
+    color: #fff;
+
+    border-radius: 30px;
+
+    font-size: .8rem;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+
+}
+
+.content h3 {
+
+    font-size: 2.2rem;
 
     color: #111827;
 
-    font-size: 1.3rem;
+    margin-bottom: 20px;
+
+    font-family: Georgia, serif;
+
 }
 
-.info span {
-
-    color: #14532d;
-
-    font-size: .9rem;
-
-    font-weight: 600;
-}
-
-.info p {
-
-    margin-top: 15px;
+.content p {
 
     color: #6b7280;
 
-    line-height: 1.8;
+    line-height: 2;
+
+    margin-bottom: 40px;
+
 }
 
-@media(max-width:1000px) {
+.stats {
 
-    .team-grid {
+    display: flex;
 
-        grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+
+}
+
+.stat h4 {
+
+    font-size: 2rem;
+
+    color: #14532d;
+
+    margin-bottom: 6px;
+
+    font-family: Georgia, serif;
+
+}
+
+.stat span {
+
+    color: #6b7280;
+
+    font-size: .9rem;
+
+}
+
+@media(max-width:950px) {
+
+    .founder-card {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+    }
+
+    .image img {
+
+        height: 380px;
 
     }
 
@@ -209,21 +287,41 @@ const members = ref([
 
 @media(max-width:650px) {
 
-    .team-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
     .heading h2 {
 
         font-size: 2rem;
 
     }
 
+    .founder-card {
+
+        padding: 24px;
+
+    }
+
     .image img {
 
         height: 300px;
+
+    }
+
+    .content h3 {
+
+        font-size: 1.8rem;
+
+    }
+
+    .stats {
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+    }
+
+    .stat h4 {
+
+        font-size: 1.5rem;
 
     }
 

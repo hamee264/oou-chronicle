@@ -16,7 +16,7 @@
 
                         <ArticleTags v-if="post.tags && post.tags.length" :tags="post.tags" />
 
-                        <ShareButtons />
+                        <ShareButtons :post="post" />
 
                         <!--
                         <PreviousNext

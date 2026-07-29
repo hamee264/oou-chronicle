@@ -11,6 +11,8 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",
     "@vueuse/core": "^14.3.0",
+    "file-saver": "^2.0.5",
+    "html-to-image": "^1.11.13",
     "vue": "^3.5.39",
     "vue-router": "^5.2.0"
   },
