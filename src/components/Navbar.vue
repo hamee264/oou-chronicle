@@ -75,41 +75,56 @@
 
         <div class="mobile-navbar">
 
-            <RouterLink to="/" class="mobile-brand">
+            <RouterLink to="/" class="mobile-brand" @click="menuOpen = false">
 
                 <img src="/src/assets/images.jpeg" alt="OOU Chronicle">
 
             </RouterLink>
 
-            <button class="icon-btn" @click="toggleMenu">
-
-                <i :class="menuOpen
-                    ? 'fa-solid fa-xmark'
-                    : 'fa-solid fa-bars'"></i>
-
+            <button class="icon-btn" :class="{ active: menuOpen }" @click="toggleMenu" aria-label="Toggle menu"
+                :aria-expanded="menuOpen">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </button>
 
             <nav class="Mobile-links" :class="{ open: menuOpen }">
 
+                <div class="mobile-menu-head">
+                    <span>{{ editionDate }}</span>
+                    <span class="dot">•</span>
+                    <span>Campus Edition</span>
+                </div>
+
                 <RouterLink class="link" to="/" @click="menuOpen = false">
-                    Home
+                    <span class="link-num">01</span>
+                    <span>Home</span>
                 </RouterLink>
 
                 <RouterLink class="link" to="/news" @click="menuOpen = false">
-                    News
+                    <span class="link-num">02</span>
+                    <span>News</span>
                 </RouterLink>
 
                 <RouterLink class="link" to="/about" @click="menuOpen = false">
-                    About
+                    <span class="link-num">03</span>
+                    <span>About</span>
                 </RouterLink>
 
                 <RouterLink class="link" to="/categories" @click="menuOpen = false">
-                    Categories
+                    <span class="link-num">04</span>
+                    <span>Categories</span>
                 </RouterLink>
 
                 <RouterLink class="link" to="/contact" @click="menuOpen = false">
-                    Contact
+                    <span class="link-num">05</span>
+                    <span>Contact</span>
                 </RouterLink>
+
+                <div class="mobile-menu-foot">
+                    <span>Olabisi Onabanjo University</span>
+                    <span class="mobile-menu-foot-sub">Independent Student Newspaper</span>
+                </div>
 
             </nav>
 
@@ -404,6 +419,8 @@ onUnmounted(() => {
 
     .navbar {
         padding: 16px 24px;
+        /* border-bottom: 1px solid var(--border); */
+
     }
 
     .Container.is-scrolled .navbar {
@@ -463,8 +480,9 @@ onUnmounted(() => {
         padding: 14px 18px;
         position: relative;
         background: #fff;
-        border-bottom: 1px solid var(--border);
+        /* border-bottom: 1px solid var(--border); */
         z-index: 100;
+        border-bottom: #14532d 2px solid;
     }
 
     .mobile-brand {
@@ -481,86 +499,128 @@ onUnmounted(() => {
         border: 1px solid var(--border);
     }
 
+    /* Animated hamburger -> X */
     .icon-btn {
         width: 44px;
         height: 44px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: 5px;
         border: none;
-        background: #fff;
-        color: var(--black);
+        background: transparent;
         cursor: pointer;
-        transition: .25s;
+        padding: 0;
+        z-index: 110;
     }
 
-    .icon-btn i {
-        font-size: 1.3rem;
+    .icon-btn .bar {
+        width: 22px;
+        height: 2px;
+        background: var(--black);
+        transition: .3s ease;
+        transform-origin: center;
     }
 
-    .icon-btn:hover {
-        color: var(--green);
+    .icon-btn:hover .bar {
+        background: var(--green);
     }
 
+    .icon-btn.active .bar {
+        background: var(--green);
+    }
+
+    .icon-btn.active .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .icon-btn.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .icon-btn.active .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Slide-in edition drawer */
     .Mobile-links {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 18px;
-        right: 18px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(78vw, 320px);
 
         display: flex;
         flex-direction: column;
 
         background: #fff;
+        border-left: 1px solid var(--border);
+        box-shadow: -18px 0 40px rgba(0, 0, 0, .12);
 
-        border: 1px solid var(--border);
+        padding-top: 84px;
 
-        box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
-
-        opacity: 0;
+        transform: translateX(100%);
         visibility: hidden;
-        transform: translateY(-10px);
-
-        transition: .25s ease;
+        transition: transform .35s cubic-bezier(.16, 1, .3, 1), visibility 0s .35s;
 
         z-index: 100;
     }
 
     .Mobile-links.open {
-
-        opacity: 1;
-
+        transform: translateX(0);
         visibility: visible;
+        transition: transform .35s cubic-bezier(.16, 1, .3, 1);
+    }
 
-        transform: translateY(0);
-
+    .mobile-menu-head {
+        padding: 0 24px 18px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid var(--border);
+        font-family: var(--font-mono);
+        font-size: .66rem;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .Mobile-links .link {
 
-        padding: 18px 20px;
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+
+        padding: 16px 24px;
 
         text-transform: none;
 
         letter-spacing: 0;
 
-        font-size: 1rem;
+        font-family: var(--font-serif);
+        font-size: 1.1rem;
+        font-weight: 600;
 
         color: var(--text);
+        text-decoration: none;
 
         border-bottom: 1px solid var(--border-soft);
 
     }
 
-    .Mobile-links .link:last-child {
-
-        border-bottom: none;
-
+    .link-num {
+        font-family: var(--font-mono);
+        font-size: .7rem;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0;
     }
 
-    .Mobile-links .link::after {
+    .Mobile-links .link:last-of-type {
 
-        display: none;
+        border-bottom: none;
 
     }
 
@@ -570,8 +630,10 @@ onUnmounted(() => {
 
         color: var(--green);
 
-        padding-left: 28px;
+    }
 
+    .Mobile-links .link:hover .link-num {
+        color: var(--green);
     }
 
     .Mobile-links .router-link-exact-active {
@@ -582,8 +644,34 @@ onUnmounted(() => {
 
         border-left: 3px solid var(--green);
 
-        padding-left: 25px;
+        padding-left: 21px;
 
+    }
+
+    .Mobile-links .router-link-exact-active .link-num {
+        color: var(--green);
+    }
+
+    .mobile-menu-foot {
+        margin-top: auto;
+        padding: 20px 24px 28px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .mobile-menu-foot span:first-child {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: .92rem;
+        color: var(--black);
+    }
+
+    .mobile-menu-foot-sub {
+        font-size: .74rem;
+        font-style: italic;
+        color: var(--muted);
     }
 
 }
@@ -606,6 +694,11 @@ onUnmounted(() => {
 
         height: 46px;
 
+    }
+
+    .Mobile-links {
+        width: 82vw;
+        padding-top: 76px;
     }
 
 }
